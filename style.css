@@ -366,11 +366,74 @@ body {
   border-top: 1px solid #d1d7dc;
 }
 
-/* Responsividade */
-/* RESPONSIVIDADE */
+/* ================================
+   Ajustes para Mobile (até 768px)
+   ================================ */
 @media (max-width: 768px) {
-  .section--estrutura .container {
-    padding-bottom: 1rem;
+  /* 1) Header → menu hamburger */
+  .nav__list {
+    display: none;            /* esconde links */
+  }
+  .nav::after {
+    content: '☰';             /* ícone simples */
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+  }
+  .nav.open .nav__list {
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    padding: 1rem;
+  }
+
+  /* 2) Hero → empilha e ajusta alturas */
+  .hero__container {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  .hero__image {
+    max-width: 300px;
+    margin: 0 auto 1.5rem;
+  }
+  .hero__content h1 {
+    font-size: 2rem;
+  }
+  .hero__content p {
+    font-size: 1rem;
+  }
+
+  /* 3) Cards → 1 coluna, fluidos */
+  .card__container {
+    grid-template-columns: 1fr;
+    margin-inline: 0.5rem;
+  }
+  .card__article {
+    max-height: none; /* deixa expandir naturalmente */
+    transition: none; /* sem hover expand */
+  }
+  .card__img {
+    height: 180px;
+  }
+  .card__data {
+    padding: 0.75rem;
+  }
+  .card__title {
+    font-size: 1.125rem;
+  }
+  .card__description {
+    font-size: 0.875rem;
+  }
+
+  /* 4) Split “Estrutura Interna” → empilha com bleed ajustado */
+  .section--estrutura {
+    padding: 2rem 1rem;
+    background: #fff;
   }
   .estrutura-split__inner {
     flex-direction: column;
@@ -378,10 +441,19 @@ body {
   .estrutura-split__left,
   .estrutura-split__list {
     flex: 1 1 100%;
+    width: 100%;
     padding: 2rem 1rem;
+    background-clip: content-box;
+  }
+  .estrutura-split__left {
+    background: var(--primary);
+    margin-left: 0; /* sem bleed em mobile */
   }
   .split__text {
-    text-align: center;
     font-size: 1.5rem;
+    line-height: 1.4;
+  }
+  .estrutura-split__list p {
+    font-size: 0.875rem;
   }
 }
