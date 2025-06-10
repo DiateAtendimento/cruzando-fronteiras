@@ -457,3 +457,70 @@ body {
     font-size: 0.875rem;
   }
 }
+
+/* ================================
+   Smartphones bem pequenos (até 480px)
+   ================================ */
+@media (max-width: 480px) {
+  /* Hero: ainda mais empilhado */
+  .hero__content h1 {
+    font-size: 1.75rem;
+  }
+  .hero__content p {
+    font-size: 0.9rem;
+  }
+  .btn--primary {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Cards: padding e texto menores */
+  .card__article { margin-inline: 0.5rem; }
+  .card__title   { font-size: 1rem; }
+  .card__description { font-size: 0.8rem; }
+
+  /* Split mobile: texto um pouco menor */
+  .split__text { font-size: 1.25rem; }
+}
+
+/* ================================
+   Grandes monitores (>1440px)
+   ================================ */
+@media (min-width: 1440px) {
+  /* alarga o container para monitores grandes */
+  .hero__container,
+  .section--comosera .container,
+  .section--estrutura .container {
+    max-width: 1440px;
+  }
+
+  /* Hero: título maior */
+  .hero__content h1 {
+    font-size: 3rem;
+  }
+  .hero__content p {
+    font-size: 1.25rem;
+  }
+
+  /* Cards: aumenta o gap e o tamanho do texto */
+  .card__container {
+    gap: 3rem;
+  }
+  .card__title {
+    font-size: 1.5rem;
+  }
+  .card__description {
+    font-size: 1rem;
+  }
+
+  /* Split: padding mais generoso */
+  .estrutura-split__left,
+  .estrutura-split__list {
+    padding: 6rem 3rem;
+  }
+  .split__text {
+    font-size: 3rem;
+    line-height: 1.1;
+  }
+}
+
