@@ -484,6 +484,31 @@ body {
 }
 
 /* ================================
+   Smartphones bem pequenos (até 480px)
+   ================================ */
+@media (max-width: 480px) {
+  /* Hero: ainda mais empilhado */
+  .hero__content h1 {
+    font-size: 1.75rem;
+  }
+  .hero__content p {
+    font-size: 0.9rem;
+  }
+  .btn--primary {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Cards: padding e texto menores */
+  .card__article { margin-inline: 0.5rem; }
+  .card__title   { font-size: 1rem; }
+  .card__description { font-size: 0.8rem; }
+
+  /* Split mobile: texto um pouco menor */
+  .split__text { font-size: 1.25rem; }
+}
+
+/* ================================
    Grandes monitores (>1440px)
    ================================ */
 @media (min-width: 1440px) {
@@ -523,4 +548,3 @@ body {
     line-height: 1.1;
   }
 }
-
