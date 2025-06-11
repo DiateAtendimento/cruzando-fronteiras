@@ -58,23 +58,25 @@ body {
 
 /* Hero (100vh) */
 .hero {
-  position: relative;
+  /* alinhar verticalmente no centro, não embaixo */
+  display: flex;
+  align-items: center;           /* antes era flex-end */
   height: 100vh;
   overflow: hidden;
   background: linear-gradient(90deg, var(--primary) 50%, var(--dark) 50%);
-  display: flex;
-  align-items: flex-end;     /* imagem “gruda” no bottom */
 }
+
 .hero__container {
+  display: flex;
+  align-items: center;           /* antes era flex-end */
+  justify-content: space-between;
+  width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  display: flex;
-  width: 100%;
   padding: 0 2rem;
-  align-items: flex-end;
-  justify-content: space-between;
   height: 100%;
 }
+
 .hero__image {
   flex: 1;
   overflow: hidden;
@@ -83,8 +85,14 @@ body {
   display: block;
   width: 100%;
   max-width: 500px;
-  margin-bottom: -2rem; /* “puxa” pra baixo */
+  height: auto;
+  /* remover o margin-bottom negativo */
+  margin-bottom: 0;               /* antes: margin-bottom: -2rem; */
+  /* se ainda quiser que parte da imagem “sair” para baixo, use algo como:
+  margin-top: -1rem;
+  */
 }
+
 .hero__content {
   flex: 1;
   max-width: 500px;
