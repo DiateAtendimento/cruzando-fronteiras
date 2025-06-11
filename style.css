@@ -9,14 +9,15 @@
 
 :root {
   --primary: #2dd1e0;
-  --dark: #000;
-  --cta: #7c44ff;
-  --font: 'Montserrat', sans-serif;
+  --dark:    #000;
+  --cta:     #7c44ff;
+  --font:    'Montserrat', sans-serif;
 }
 
 body {
   font-family: var(--font);
   background-color: #f9f9f9;
+  color: #333;
 }
 
 /* Header fixo */
@@ -26,52 +27,34 @@ body {
   width: 100%;
   background: #000;
   z-index: 100;
+  transition: transform 0.3s ease;
 }
+.site-header.scroll-down { transform: translateY(-100%); }
+.site-header.scroll-up   { transform: translateY(0); }
+
 .nav {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1rem 2rem;
 }
-/* menu horizontal */
-.nav__list {
-  list-style: none;
-  display: flex;          /* transforma em flex container */
-  gap: 1.5rem;            /* espaçamento entre itens */
-  align-items: center;    /* alinha verticalmente */
-}
-
-/* garante que cada item não quebre linha */
-.nav__list li {
-  display: inline-block;  
-}
-
-/* e os links ficam um ao lado do outro */
-.nav__list li a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 0.875rem;
-}
-
 .nav__logo {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: var(--primary);
 }
-
-/* hide-on-scroll */
-.site-header {
-  transition: transform 0.3s ease;
+.nav__list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
 }
-.site-header.scroll-down {
-  transform: translateY(-100%);
+.nav__list li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
 }
-.site-header.scroll-up {
-  transform: translateY(0);
-}
-
 
 /* Hero (100vh) */
 .hero {
@@ -80,15 +63,15 @@ body {
   overflow: hidden;
   background: linear-gradient(90deg, var(--primary) 50%, var(--dark) 50%);
   display: flex;
-  align-items: center;
+  align-items: flex-end;     /* imagem “gruda” no bottom */
 }
 .hero__container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   width: 100%;
-  padding: 0 1rem;
-  align-items: center;
+  padding: 0 2rem;
+  align-items: flex-end;
   justify-content: space-between;
   height: 100%;
 }
@@ -97,54 +80,54 @@ body {
   overflow: hidden;
 }
 .hero__image img {
+  display: block;
   width: 100%;
   max-width: 500px;
-  height: auto;
-  display: block;
+  margin-bottom: -2rem; /* “puxa” pra baixo */
 }
 .hero__content {
   flex: 1;
-  color: #fff;
   max-width: 500px;
+  color: #fff;
+  text-align: left;
 }
 .hero__content h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
   line-height: 1.2;
 }
 .hero__content p {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   margin-bottom: 1.5rem;
   line-height: 1.5;
 }
 .btn--primary {
   background-color: var(--cta);
   color: #fff;
-  text-decoration: none;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
+  text-decoration: none;
   font-weight: 500;
   display: inline-block;
 }
 
 /* seção base */
 .section {
-  padding: 4rem 1rem;
+  padding: 4rem 2rem;
 }
 
-/* seção "Como será o projeto" */
+/* Como será o nosso projeto */
 .section--comosera {
   background: #fff;
 }
 .section--comosera .container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   text-align: center;
 }
 .section--comosera h2 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #333;
 }
 .section--comosera p {
   font-size: 1.125rem;
@@ -152,100 +135,71 @@ body {
   color: #555;
 }
 
-/* Cards padrão com altura uniforme inicial */
+/* Cards */
 .comosera__cards,
 .card__container {
   display: grid;
-  gap: 2rem;
-  margin-inline: 1.5rem;
-  padding-block: 2rem;
+  gap: 2.5rem;
+  margin: 0 auto;
+  padding: 2rem 0;
+  max-width: 1440px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
-@media (min-width: 768px) {
-  .card__container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 1120px) {
-  .card__container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
 .card__article {
   background: #fff;
   border-radius: 1.5rem;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   overflow: hidden;
-
-  /* transita suavemente TODAS as propriedades em 1s */
-  transition: all 1s ease-in-out !important;
-
-  /* inicia truncado na altura da imagem */
   max-height: 200px;
+  transition: max-height 1s ease-in-out;
 }
-
 .card__article:hover {
   cursor: pointer;
-  /* altura suficiente p/ todo o texto */
   max-height: 600px;
 }
-
-
 .card__img {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  display: block;
- 
 }
-
 .card__data {
   padding: 1rem;
 }
-
 .card__title {
-  font-size: 1.25rem;
-  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
-
 .card__description {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-/* seção “Estrutura Interna” */
+/* Estrutura Interna */
 .section--estrutura {
-  padding: 0rem 0;    /* zero de padding lateral */
-  background: #fff;   /* mantém fundo branco no geral */
+  background: #fff;
+  padding: 4rem 2rem 2rem;
 }
 .section--estrutura .container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   text-align: center;
-  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 }
-
 .section--estrutura h2 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #333;
 }
 .section--estrutura p {
   font-size: 1.125rem;
   margin-bottom: 2rem;
   color: #555;
 }
-
-
-/* full-bleed split: fora do container */
+/* split full-bleed */
 .estrutura-split__inner {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
 }
-
-/* metade azul colada à esquerda */
 .estrutura-split__left {
   flex: 1 1 50%;
   background: var(--primary);
@@ -255,17 +209,13 @@ body {
   padding: 4rem 2rem;
 }
 .split__text {
-  font-size: 2.5rem;
+  font-size: 3rem;
   line-height: 1.2;
-  font-weight: bold; /* ou 'bold' se quiser garantir */
+  font-weight: bold;
   color: #000;
-  margin: 0;            /* remove margens extras */
-  padding: 0;           /* remove paddings extras */
+  margin: 0;
 }
-.split__text em {
-  font-style: italic;
-}
-/* metade branca contida em flex normal */
+.split__text em { font-style: italic; }
 .estrutura-split__list {
   flex: 1 1 50%;
   background: #fff;
@@ -286,33 +236,28 @@ body {
   height: 32px;
 }
 .estrutura-split__list p {
+  font-size: 1rem;
+  line-height: 1.5;
   margin: 0;
-  color: #333;
-  line-height: 1.4;
 }
-
 
 /* Footer */
 .site-footer {
   background: #f0f4f8;
-  color: #333;
-  padding: 4rem 1rem 2rem;
+  padding: 4rem 2rem 2rem;
 }
 .footer__inner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
   gap: 2rem;
 }
 .footer__col h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
   text-transform: uppercase;
-  color: #555;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 .footer__col ul {
   list-style: none;
-  padding: 0;
 }
 .footer__col ul li {
   margin-bottom: 0.75rem;
@@ -320,207 +265,92 @@ body {
 .footer__col ul li a {
   text-decoration: none;
   color: #333;
-  font-size: 0.95rem;
 }
-.footer__col ul li a:hover {
-  text-decoration: underline;
-}
-.footer__col--brand p {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 1rem;
+.footer__col--brand {
+  font-size: 1rem;
 }
 .footer__phone a {
   color: var(--primary);
+  font-weight: bold;
   text-decoration: none;
-  font-weight: 600;
 }
 .btn--secondary {
-  display: inline-block;
-  margin-bottom: 1rem;
-  padding: 0.5rem 1.25rem;
   border: 1px solid var(--primary);
+  padding: 0.5rem 1rem;
   border-radius: 0.25rem;
-  color: var(--primary);
   text-decoration: none;
-  font-size: 0.95rem;
-}
-.btn--secondary:hover {
-  background: var(--primary);
-  color: #fff;
+  color: var(--primary);
 }
 .footer__social {
   display: flex;
-  gap: 0.75rem;
-}
-.footer__social img {
-  width: 24px;
-  height: 24px;
+  gap: 1rem;
 }
 .footer__bottom {
   background: #e0e6eb;
   text-align: center;
   padding: 1rem;
-  font-size: 0.85rem;
-  color: #666;
-  border-top: 1px solid #d1d7dc;
+  margin-top: 2rem;
 }
 
-/* ================================
-   Ajustes para Mobile (até 768px)
-   ================================ */
-@media (max-width: 768px) {
-  /* 1) Header → menu hamburger */
-  .nav__list {
-    display: none;            /* esconde links */
-  }
+/* Responsividade */
+
+/* smartphones até 480px */
+@media (max-width: 480px) {
+  .nav { padding: 1rem; }
+  .nav__list { display: none; }
   .nav::after {
-    content: '☰';             /* ícone simples */
+    content: '☰';
     font-size: 1.5rem;
     color: #fff;
     cursor: pointer;
   }
-  .nav.open .nav__list {
-    display: flex;
-    flex-direction: column;
-    background: #000;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 200px;
-    padding: 1rem;
-  }
+  .hero__container { flex-direction: column; text-align: center; }
+  .hero__content h1 { font-size: 1.75rem; }
+  .hero__content p { font-size: 0.9rem; }
+  .btn--primary { padding: 0.5rem 1rem; font-size: 0.9rem; }
 
-  /* 2) Hero → empilha e ajusta alturas */
-  .hero__container {
-    flex-direction: column;
-    text-align: center;
-    padding: 2rem 1rem;
-  }
-  .hero__image {
-    max-width: 300px;
-    margin: 0 auto 1.5rem;
-  }
-  .hero__content h1 {
-    font-size: 2rem;
-  }
-  .hero__content p {
-    font-size: 1rem;
-  }
-
-  /* 3) Cards → 1 coluna, fluidos */
-  .card__container {
-    grid-template-columns: 1fr;
-    margin-inline: 0.5rem;
-  }
-  .card__article {
-    max-height: none; /* deixa expandir naturalmente */
-    transition: none; /* sem hover expand */
-  }
-  .card__img {
-    height: 180px;
-  }
-  .card__data {
-    padding: 0.75rem;
-  }
-  .card__title {
-    font-size: 1.125rem;
-  }
-  .card__description {
-    font-size: 0.875rem;
-  }
-
-  /* 4) Split “Estrutura Interna” → empilha com bleed ajustado */
-  .section--estrutura {
-    padding: 2rem 1rem;
-    background: #fff;
-  }
-  .estrutura-split__inner {
-    flex-direction: column;
-  }
-  .estrutura-split__left,
-  .estrutura-split__list {
-    flex: 1 1 100%;
-    width: 100%;
-    padding: 2rem 1rem;
-    background-clip: content-box;
-  }
-  .estrutura-split__left {
-    background: var(--primary);
-    margin-left: 0; /* sem bleed em mobile */
-  }
-  .split__text {
-    font-size: 1.5rem;
-    line-height: 1.4;
-  }
-  .estrutura-split__list p {
-    font-size: 0.875rem;
-  }
-}
-
-/* ================================
-   Smartphones bem pequenos (até 480px)
-   ================================ */
-@media (max-width: 480px) {
-  /* Hero: ainda mais empilhado */
-  .hero__content h1 {
-    font-size: 1.75rem;
-  }
-  .hero__content p {
-    font-size: 0.9rem;
-  }
-  .btn--primary {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  /* Cards: padding e texto menores */
-  .card__article { margin-inline: 0.5rem; }
-  .card__title   { font-size: 1rem; }
+  .card__container { grid-template-columns: 1fr; }
+  .card__article { max-height: none; transition: none; }
+  .card__img { height: 180px; }
+  .card__title { font-size: 1rem; }
   .card__description { font-size: 0.8rem; }
 
-  /* Split mobile: texto um pouco menor */
-  .split__text { font-size: 1.25rem; }
+  .section--estrutura { padding: 2rem 1rem; }
+  .estrutura-split__inner { flex-direction: column; }
+  .split__text { font-size: 1.25rem; text-align: center; }
+  .estrutura-split__list p { font-size: 0.875rem; }
 }
 
+/* tablets e notebooks (até 1024px) */
+@media (max-width: 1024px) {
+  .hero__container { padding: 2rem 1rem; }
+  .hero__content h1 { font-size: 2rem; }
+  .hero__content p { font-size: 1rem; }
 
-/* ================================
-   Grandes monitores (>1440px)
-   ================================ */
+  .card__container {
+    margin-inline: 1rem;
+    gap: 1.5rem;
+  }
+
+  .estrutura-split__left,
+  .estrutura-split__list { padding: 3rem 1.5rem; }
+  .split__text { font-size: 2rem; }
+}
+
+/* grandes monitores (acima de 1440px) */
 @media (min-width: 1440px) {
-  /* alarga o container para monitores grandes */
   .hero__container,
   .section--comosera .container,
-  .section--estrutura .container {
-    max-width: 1440px;
-  }
+  .section--estrutura .container { max-width: 1440px; }
 
-  /* Hero: título maior */
-  .hero__content h1 {
-    font-size: 3rem;
-  }
-  .hero__content p {
-    font-size: 1.25rem;
-  }
+  .hero__content h1 { font-size: 3rem; }
+  .hero__content p { font-size: 1.25rem; }
 
-  /* Cards: aumenta o gap e o tamanho do texto */
-  .card__container {
-    gap: 3rem;
-  }
-  .card__title {
-    font-size: 1.5rem;
-  }
-  .card__description {
-    font-size: 1rem;
-  }
+  .card__container { gap: 3rem; }
+  .card__title { font-size: 1.5rem; }
+  .card__description { font-size: 1.1rem; }
 
-  /* Split: padding mais generoso */
   .estrutura-split__left,
-  .estrutura-split__list {
-    padding: 6rem 3rem;
-  }
-  .split__text {
-    font-size: 3rem;
-    line-height: 1.1;
-  }
+  .estrutura-split__list { padding: 6rem 4rem; }
+  .split__text { font-size: 3rem; }
 }
