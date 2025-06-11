@@ -25,6 +25,7 @@
       <a href="#" class="nav__logo">
         <img src="img/icon-logo-drpps.svg" alt="Logo" />
       </a>
+      <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
       <ul class="nav__list">
         <li><a href="#estrutura">Estrutura Interna</a></li>
         <li><a href="#comosera">Como será o projeto</a></li>
@@ -227,6 +228,18 @@
       lastScroll = current;
     });
   </script>
+
+  <script>
+  // Abre/fecha menu mobile
+  document.querySelector('.menu-toggle').onclick = function() {
+    document.querySelector('.nav__list').classList.toggle('open');
+  };
+  // Fecha menu ao clicar em link (mobile)
+  document.querySelectorAll('.nav__list a').forEach(link =>
+    link.onclick = () => document.querySelector('.nav__list').classList.remove('open')
+  );
+</script>
+
 
   <!-- AOS JS -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
