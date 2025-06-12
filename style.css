@@ -653,3 +653,51 @@ html, body {
     padding: 0 !important;
   }
 }
+
+
+
+/*CSS PARA MENSAGENS DE PÁGINA EM COSNTRUÇÃO*/
+
+.em-breve-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(0deg,rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.1) 100%), 
+              url('img/mountains-bg.png') center/cover no-repeat;
+  /* troque a imagem se quiser, ou remova para fundo liso */
+}
+
+.em-breve-container {
+  background: rgba(30, 33, 40, 0.22);
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 32px #1119;
+  max-width: 450px;
+  width: 95vw;
+  text-align: left;
+  border-bottom: 3px solid #fff;
+}
+
+.em-breve-title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: .6rem;
+  color: #fff;
+}
+
+.em-breve-desc {
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .em-breve-container { max-width: 98vw; padding: 2rem 1rem 1.5rem 1rem; }
+  .em-breve-title { font-size: 1.4rem; }
+  .em-breve-desc { font-size: 1rem; }
+}
+
