@@ -22,14 +22,15 @@
   <!-- Header fixo com hide-on-scroll -->
   <header class="site-header">
     <nav class="nav">
-      <a href="#" class="nav__logo">
+      <a href="index.html" class="nav__logo">
         <img src="img/icon-logo-drpps.svg" alt="Logo" />
       </a>
       <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
       <ul class="nav__list">
-        <li><a href="#estrutura">Estrutura Interna</a></li>
         <li><a href="#comosera">Como será o projeto</a></li>
-        <li><a href="#cronograma">Programação</a></li>
+        <li><a href="#estrutura">Nossa Coordenação</a></li>
+        <li><a href="estrutura-Interna.html">Estrutura Interna</a></li>
+        <li><a href="programacao.html">Programação</a></li>
       </ul>
     </nav>
   </header>
@@ -113,7 +114,7 @@
   <!-- Seção Estrutura Interna -->
   <section id="estrutura" class="section section--estrutura">
     <div class="container">
-      <h2 data-aos="fade-up">Estrutura Interna</h2>
+      <h2 data-aos="fade-up">Nossa Coordenação</h2>
       <p data-aos="fade-up" data-aos-delay="100">
         Conheça como nossa coordenação está organizada para dar suporte a todo
         o DRPPS.
@@ -171,20 +172,16 @@
         <h4>Seções</h4>
         <ul>
           <li><a href="#hero">Início</a></li>
-          <li><a href="#estrutura">Estrutura Interna</a></li>
-          <li><a href="#normas">Normas</a></li>
           <li><a href="#comosera">Como será o projeto</a></li>
-          <li><a href="#cronograma">Cronograma</a></li>
-          <li><a href="#apresentacoes">Apresentações</a></li>
-          <li><a href="#gravacoes">Gravações</a></li>
+          <li><a href="#estrutura">Nossa Coordenação</a></li>
+          <li><a href="estrutura-Interna.html">Estrutura Interna</a></li>
+          
         </ul>
       </div>
       <div class="footer__col">
         <h4>Recursos</h4>
         <ul>
-          <li><a href="#normas">Documentos e Normas</a></li>
-          <li><a href="#apresentacoes">Slides de Apresentações</a></li>
-          <li><a href="#gravacoes">Gravações</a></li>
+        <li><a href="programacao.html">Programação</a></li>
         </ul>
       </div>
       <div class="footer__col footer__col--brand">
@@ -193,7 +190,7 @@
           Cruzando as Fronteiras da minha coordenação.
         </p>
         <p class="footer__phone">
-          <a href="tel:+5561XXXXXXX">(61) 2021-5555</a>
+          <P>Contato: (61) 2021-5555</P>
         </p>
         
         </div>
@@ -230,15 +227,15 @@
   </script>
 
   <script>
-  // Abre/fecha menu mobile
-  document.querySelector('.menu-toggle').onclick = function() {
-    document.querySelector('.nav__list').classList.toggle('open');
-  };
-  // Fecha menu ao clicar em link (mobile)
-  document.querySelectorAll('.nav__list a').forEach(link =>
-    link.onclick = () => document.querySelector('.nav__list').classList.remove('open')
-  );
-</script>
+    // Abre/fecha menu mobile
+    document.querySelector('.menu-toggle').onclick = function() {
+      document.querySelector('.nav__list').classList.toggle('open');
+    };
+    // Fecha menu ao clicar em link (mobile)
+    document.querySelectorAll('.nav__list a').forEach(link =>
+      link.onclick = () => document.querySelector('.nav__list').classList.remove('open')
+    );
+  </script>
 
 
   <!-- AOS JS -->
