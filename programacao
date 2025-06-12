@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nosso DRPPS</title>
+
+  <!-- Google Fonts Montserrat -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- AOS CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+    rel="stylesheet"
+  />
+  <!-- Seu CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header fixo com hide-on-scroll -->
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav__logo">
+        <img src="img/icon-logo-drpps.svg" alt="Logo" />
+      </a>
+      <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
+      <ul class="nav__list">
+        <li><a href="index.html#comosera">Como será o projeto</a></li>
+        <li><a href="index.html#estrutura">Nossa Coordenação</a></li>
+        <li><a href="estrutura-Interna.html">Estrutura Interna</a></li>
+        <li><a href="programacao.html">Programação</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+
+
+
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer__inner container">
+      <div class="footer__col">
+        <h4>Seções</h4>
+        <ul>
+          <li><a href="#hero">Início</a></li>
+          <li><a href="index.html#comosera">Como será o projeto</a></li>
+          <li><a href="index.html#estrutura">Nossa Coordenação</a></li>
+          <li><a href="estrutura-Interna.html">Estrutura Interna</a></li>
+          
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Recursos</h4>
+        <ul>
+        <li><a href="programacao.html">Programação</a></li>
+        </ul>
+      </div>
+      <div class="footer__col footer__col--brand">
+        <h4>Nosso DRPPS</h4>
+        <p>
+          Cruzando as Fronteiras da minha coordenação.
+        </p>
+        <p class="footer__phone">
+          <P>Contato: (61) 2021-5555</P>
+        </p>
+        
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2025 Nosso DRPPS. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Smooth scroll & hide-on-scroll -->
+  <script>
+    document.documentElement.style.scrollBehavior = 'smooth';
+    let lastScroll = 0;
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      const current = window.pageYOffset;
+      if (current <= 0) {
+        header.classList.remove('scroll-up');
+        return;
+      }
+      if (current > lastScroll && !header.classList.contains('scroll-down')) {
+        header.classList.remove('scroll-up');
+        header.classList.add('scroll-down');
+      } else if (
+        current < lastScroll &&
+        header.classList.contains('scroll-down')
+      ) {
+        header.classList.remove('scroll-down');
+        header.classList.add('scroll-up');
+      }
+      lastScroll = current;
+    });
+  </script>
+
+  <script>
+    // Abre/fecha menu mobile
+    document.querySelector('.menu-toggle').onclick = function() {
+      document.querySelector('.nav__list').classList.toggle('open');
+    };
+    // Fecha menu ao clicar em link (mobile)
+    document.querySelectorAll('.nav__list a').forEach(link =>
+      link.onclick = () => document.querySelector('.nav__list').classList.remove('open')
+    );
+  </script>
+
+
+  <!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 700,
+      once: true
+    });
+  </script>
+</body>
+</html>
