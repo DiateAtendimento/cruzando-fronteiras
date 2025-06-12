@@ -101,16 +101,40 @@
     });
   </script>
 
-  <script>
-    // Abre/fecha menu mobile
-    document.querySelector('.menu-toggle').onclick = function() {
-      document.querySelector('.nav__list').classList.toggle('open');
-    };
-    // Fecha menu ao clicar em link (mobile)
-    document.querySelectorAll('.nav__list a').forEach(link =>
-      link.onclick = () => document.querySelector('.nav__list').classList.remove('open')
-    );
-  </script>
+<script>
+  // Abre/fecha menu mobile
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navList = document.querySelector('.nav__list');
+
+  menuToggle.onclick = function(e) {
+    navList.classList.toggle('open');
+    // Impede o clique de fechar imediatamente
+    e.stopPropagation();
+  };
+
+  // Fecha menu ao clicar em qualquer link
+  document.querySelectorAll('.nav__list a').forEach(link =>
+    link.onclick = () => navList.classList.remove('open')
+  );
+
+  // Fecha ao clicar fora do menu
+  document.addEventListener('click', function(e) {
+    // Só fecha se estiver aberto, e se o clique não for dentro do menu ou do botão
+    if (
+      navList.classList.contains('open') &&
+      !navList.contains(e.target) &&
+      !menuToggle.contains(e.target)
+    ) {
+      navList.classList.remove('open');
+    }
+  });
+
+  // Impede que clique dentro do menu feche o menu (quando for um clique no UL e não no link)
+  navList.onclick = function(e) {
+    e.stopPropagation();
+  };
+</script>
+
 
 
   <!-- AOS JS -->
