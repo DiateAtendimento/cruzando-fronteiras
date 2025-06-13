@@ -35,14 +35,40 @@
     </nav>
   </header>
 
-  <main>
-    <section class="em-breve-section">
-      <div class="em-breve-container">
-        <h1 class="em-breve-title">EM BREVE</h1>
-        <p class="em-breve-desc">Estamos trabalhando muito para<br>oferecer a você a melhor experiência!</p>
+ <main class="main-programacoes">
+  <div class="programacao-header">
+    <input type="text" id="programacaoBusca" placeholder="Encontre uma programação..." />
+    <button id="btnNovo" class="btn-novo" style="display:none;">Novo</button>
+  </div>
+  <h2 class="programacoes-titulo"><span class="tree-toggle-btn" data-level="root"></span> Programações</h2>
+  <ul id="programacaoLista" class="tree-programacao"></ul>
+
+  <!-- Formulário modal -->
+  <div id="programacaoModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <label>Tema<br/><input type="text" id="inputTema" /></label>
+      <label>Responsável<br/><input type="text" id="inputResponsavel" /></label>
+      <label>Data<br/><input type="date" id="inputData" /></label>
+      <label>Vídeo<br/><input type="text" id="inputVideo" /></label>
+      <label>PPTX<br/><input type="text" id="inputPptx" /></label>
+      <div class="modal-actions">
+        <button id="btnSalvar" class="btn-salvar">Salvar</button>
+        <button id="btnCancelar" class="btn-cancelar">Cancelar</button>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+
+  <!-- Confirmação de exclusão -->
+  <div id="confirmExclusao" class="modal" style="display:none;">
+    <div class="modal-content">
+      <p><strong>Tem certeza que deseja excluir essa Programação?</strong></p>
+      <button id="btnConfirmaExclusao" class="btn-excluir">Sim</button>
+      <button id="btnCancelaExclusao" class="btn-cancelar">Não</button>
+    </div>
+  </div>
+</main>
+
+
 
   <!-- Footer -->
   <footer class="site-footer">
@@ -140,7 +166,6 @@
 </script>
 
 
-
   <!-- AOS JS -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
@@ -149,5 +174,8 @@
       once: true
     });
   </script>
+
+  <script src="script.js"></script>
+
 </body>
 </html>

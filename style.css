@@ -701,3 +701,100 @@ html, body {
   .em-breve-desc { font-size: 1rem; }
 }
 
+
+
+/* PÁGINA PROGRMAÇÃO*/
+
+.main-programacoes {
+  max-width: 900px;
+  margin: 48px auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 0 10px 2px #dedede30;
+}
+.programacao-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+#programacaoBusca {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #bbb;
+  border-radius: 7px;
+  font-size: 1rem;
+}
+.btn-novo {
+  background: #14993c;
+  color: #fff;
+  border: none;
+  padding: 8px 22px;
+  border-radius: 7px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.tree-programacao {
+  margin: 0;
+  padding-left: 24px;
+  list-style: none;
+}
+.tree-programacao > li {
+  margin-bottom: 18px;
+
+}
+.btn-editar, .btn-excluir {
+  margin-left: 12px;
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  
+}
+
+.tree-programacao, 
+.tree-programacao ul {
+  list-style-type: none !important;
+  padding-left: 1.2rem; /* Mantém o espaçamento da árvore */
+  margin: 0;
+}
+
+/* Remove bullets das pastas (Ano/Mês) */
+.tree-programacao > li,
+.tree-programacao > li > ul > li {
+  list-style-type: none !important;
+}
+
+/* Mostra quadradinho apenas nos registros */
+.tree-programacao li ul li.registro {
+  list-style-type: square !important;
+  margin-left: 1.1rem;
+}
+
+/* Se precisar para mais níveis, use também: */
+.tree-programacao li ul li ul li {
+  list-style-type: square !important;
+  margin-left: 1.1rem;
+}
+
+
+.btn-editar { background: #14a8e7; color: #fff;}
+.btn-excluir { background: #e53232; color: #fff;}
+.btn-salvar { background: #14993c; color: #fff; padding: 8px 22px; border: none; border-radius: 7px; font-weight: 600; margin-right: 8px;}
+.btn-cancelar { background: #aaa; color: #fff; padding: 8px 22px; border: none; border-radius: 7px; font-weight: 600;}
+/* Modal */
+.modal { position: fixed; z-index: 9999; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(10,15,30,0.16); display: flex; align-items: center; justify-content: center;}
+.modal-content { background: #fff; padding: 32px; border-radius: 16px; min-width: 300px;}
+.modal label { display: block; margin-top: 8px;}
+.modal input[type="text"], .modal input[type="date"] { width: 100%; padding: 8px; border-radius: 7px; border: 1px solid #bbb;}
+.modal-actions { margin-top: 18px; }
+
+
+@media (max-width: 800px) {
+  .main-programacoes { padding: 8px; }
+  .modal-content { padding: 12px; min-width: unset; }
+}
+
