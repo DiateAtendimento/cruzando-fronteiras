@@ -18,16 +18,34 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => {
     console.error('❌ Erro ao conectar no MongoDB:', err.message);
     process.exit(1);
-});
-
+  });
 
 // Rotas CRUD
 
-// Listar todas as programações
+// Listar todas as programações (com datas formatadas BR)
 app.get('/api/programacoes', async (req, res) => {
   try {
     const programacoes = await Programacao.find().sort({ data: 1 });
-    res.json(programacoes);
+    const formatada = programacoes.map(p => ({
+      ...p.toObject(),
+      createdAtBr: new Date(p.createdAt).toLocaleString('pt-BR', { 
+        timeZone: 'America/Sao_Paulo',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
+      updatedAtBr: new Date(p.updatedAt).toLocaleString('pt-BR', { 
+        timeZone: 'America/Sao_Paulo',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    }));
+    res.json(formatada);
   } catch (err) {
     res.status(500).json({ error: 'Erro ao buscar programações.' });
   }
