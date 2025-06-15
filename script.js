@@ -1,6 +1,6 @@
 // script.js
 
-const API_URL = 'https://SEU_BACKEND/render_url/api'; // altere para sua URL real
+const API_URL = 'https://cruzando-fronteiras.onrender.com/api'; //Backend Render
 
 let isModerator = false;
 let jwtToken = null;
