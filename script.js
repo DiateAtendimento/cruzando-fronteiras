@@ -296,3 +296,10 @@ function mesToNum(mesNome) {
 function capitalizeMes(mes) {
   return mes.charAt(0).toUpperCase() + mes.slice(1).toLowerCase();
 }
+
+//Tecla ENTER ATIVA
+document.getElementById('modalLoginAdmin').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    document.getElementById('btnEntrarAdmin').click();
+  }
+});

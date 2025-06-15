@@ -64,7 +64,7 @@ body {
   cursor: pointer;
   font-size: 2rem;
   color: #2dd1e0;
-  margin-left: 2rem;
+  margin: 0 !important;
   opacity: .78;
   transition: opacity .2s, color .2s;
   z-index: 110;
@@ -582,9 +582,7 @@ body {
   .hero__content h1 { font-size: 2.1rem; }
 }
 @media (max-width: 700px) {
-  .nav {
-    padding: 0.7rem 1rem;
-  }
+
   .site-header { padding-bottom: 0; }
   .nav__list {
     display: none;
