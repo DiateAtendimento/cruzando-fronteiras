@@ -805,6 +805,15 @@ html, body {
 .btn-excluir { background: #e53232; color: #fff;}
 .btn-salvar { background: #14993c; color: #fff; padding: 8px 22px; border: none; border-radius: 7px; font-weight: 600; margin-right: 8px;}
 .btn-cancelar { background: #aaa; color: #fff; padding: 8px 22px; border: none; border-radius: 7px; font-weight: 600;}
+
+.btn-editar,
+.btn-excluir,
+.btn-salvar,
+.btn-cancelar {
+  cursor: pointer;
+}
+
+
 /* Modal */
 .modal { position: fixed; z-index: 9999; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(10,15,30,0.16); display: flex; align-items: center; justify-content: center;}
 .modal-content { background: #fff; padding: 32px; border-radius: 16px; min-width: 300px;}
@@ -831,3 +840,5 @@ html, body {
     padding-top: 100px !important;
   }
 }
+
+
