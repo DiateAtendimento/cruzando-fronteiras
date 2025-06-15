@@ -58,6 +58,23 @@ body {
   font-size: 1rem;
 }
 
+#btnLoginAdmin {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem;
+  color: #2dd1e0;
+  margin-left: 2rem;
+  opacity: .78;
+  transition: opacity .2s, color .2s;
+  z-index: 110;
+}
+#btnLoginAdmin:hover {
+  color: #7c44ff;
+  opacity: 1;
+}
+
+
 /* Hero (100vh) */
 .hero {
   /* alinhar verticalmente no centro */
@@ -699,6 +716,8 @@ html, body {
   .em-breve-container { max-width: 98vw; padding: 2rem 1rem 1.5rem 1rem; }
   .em-breve-title { font-size: 1.4rem; }
   .em-breve-desc { font-size: 1rem; }
+  #btnLoginAdmin { right: 12px !important; top: 12px !important; }
+
 }
 
 
@@ -711,6 +730,7 @@ html, body {
   background: #fff;
   border-radius: 16px;
   padding: 32px;
+  padding-top: 80px;
   box-shadow: 0 0 10px 2px #dedede30;
 }
 .programacao-header {

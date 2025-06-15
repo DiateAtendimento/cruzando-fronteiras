@@ -19,23 +19,55 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header fixo com hide-on-scroll -->
-  <header class="site-header">
-    <nav class="nav">
-      <a href="index.html" class="nav__logo">
-        <img src="img/icon-logo-drpps.svg" alt="Logo" />
-      </a>
-      <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
-      <ul class="nav__list">
-        <li><a href="index.html#comosera">Como será o projeto</a></li>
-        <li><a href="index.html#estrutura">Nossa Coordenação</a></li>
-        <li><a href="estrutura-Interna.html">Estrutura Interna</a></li>
-        <li><a href="programacao.html">Programação</a></li>
-      </ul>
-    </nav>
-  </header>
+
+<!-- Header fixo com hide-on-scroll -->
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="img/icon-logo-drpps.svg" alt="Logo" />
+    </a>
+    <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
+    <ul class="nav__list">
+      <li><a href="index.html#comosera">Como será o projeto</a></li>
+      <li><a href="index.html#estrutura">Nossa Coordenação</a></li>
+      <li><a href="estrutura-Interna.html">Estrutura Interna</a></li>
+      <li><a href="programacao.html">Programação</a></li>
+    </ul>
+    <!-- Engrenagem admin -->
+    <button id="btnLoginAdmin" title="Acesso administrador">
+      <span style="font-size:1.7rem;">&#9881;</span>
+    </button>
+  </nav>
+</header>
+
+
 
  <main class="main-programacoes">
+
+<!-- Modal de login admin -->
+<div id="modalLoginAdmin" class="modal" style="display:none;">
+  <div class="modal-content" style="max-width:320px;">
+    <h3 style="margin-bottom:8px;text-align:center;">Acesso restrito</h3>
+    <p style="font-size:.96rem;color:#444;text-align:center;">
+      Área exclusiva para administradores do site.
+    </p>
+    <label>Login<br>
+      <input type="text" id="adminUser" autocomplete="username">
+    </label>
+    <label style="margin-top:10px;">Senha<br>
+      <input type="password" id="adminPass" autocomplete="current-password">
+    </label>
+    <div style="margin-top:16px;text-align:center;">
+      <button id="btnEntrarAdmin" class="btn-salvar">Entrar</button>
+      <button id="btnFecharModalAdmin" class="btn-cancelar">Cancelar</button>
+      <button id="btnSairAdmin" class="btn-excluir" style="display:none;margin-top:10px;">Sair do modo admin</button>
+    </div>
+    <div id="loginError" style="color:#d32f2f;font-size:.95rem;text-align:center;margin-top:8px;display:none;">
+      Usuário ou senha inválidos!
+    </div>
+  </div>
+</div>
+
   <div class="programacao-header">
     <input type="text" id="programacaoBusca" placeholder="Encontre uma programação..." />
     <button id="btnNovo" class="btn-novo" style="display:none;">Novo</button>

@@ -6,8 +6,8 @@ const ProgramacaoSchema = new mongoose.Schema({
   data:        { type: Date,   required: true },
   video:       { type: String },
   pptx:        { type: String },
-  createdAtBr: { type: String }, // <-- campo para a data formatada (opcional no cadastro)
-  updatedAtBr: { type: String }  // <-- campo para a data formatada (opcional no cadastro)
+  createdAtBr: { type: String },
+  updatedAtBr: { type: String }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Programacao', ProgramacaoSchema);
