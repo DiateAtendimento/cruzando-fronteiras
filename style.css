@@ -582,7 +582,9 @@ body {
   .hero__content h1 { font-size: 2.1rem; }
 }
 @media (max-width: 700px) {
-
+  .nav {
+    padding: 0.7rem 1rem;
+  }
   .site-header { padding-bottom: 0; }
   .nav__list {
     display: none;
@@ -816,3 +818,16 @@ html, body {
   .modal-content { padding: 12px; min-width: unset; }
 }
 
+
+/* Corrigir sobreposição no mobile (evita header cobrir conteúdo) */
+@media (max-width: 768px) {
+  .main-programacoes {
+    padding-top: 120px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .main-programacoes {
+    padding-top: 100px !important;
+  }
+}
