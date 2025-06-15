@@ -26,47 +26,68 @@ mongoose.connect(process.env.MONGODB_URI)
 app.get('/api/programacoes', async (req, res) => {
   try {
     const programacoes = await Programacao.find().sort({ data: 1 });
-    const formatada = programacoes.map(p => ({
-      ...p.toObject(),
-      createdAtBr: new Date(p.createdAt).toLocaleString('pt-BR', { 
-        timeZone: 'America/Sao_Paulo',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-      }),
-      updatedAtBr: new Date(p.updatedAt).toLocaleString('pt-BR', { 
-        timeZone: 'America/Sao_Paulo',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-      })
-    }));
-    res.json(formatada);
+    // Aqui retorna todos os campos, inclusive createdAtBr e updatedAtBr salvos no banco
+    res.json(programacoes);
   } catch (err) {
     res.status(500).json({ error: 'Erro ao buscar programações.' });
   }
 });
 
-// Criar nova programação
+// Criar nova programação (salva data BR no documento)
 app.post('/api/programacoes', async (req, res) => {
   try {
-    const nova = new Programacao(req.body);
+    // Vamos criar o documento, salvar e depois atualizar os campos BR
+    let nova = new Programacao(req.body);
     await nova.save();
+
+    // Atualiza os campos formatados
+    const createdAtBr = new Date(nova.createdAt).toLocaleString('pt-BR', {
+      timeZone: 'America/Sao_Paulo',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    const updatedAtBr = new Date(nova.updatedAt).toLocaleString('pt-BR', {
+      timeZone: 'America/Sao_Paulo',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    // Atualiza o registro no banco
+    nova = await Programacao.findByIdAndUpdate(nova._id, {
+      createdAtBr,
+      updatedAtBr
+    }, { new: true });
+
     res.status(201).json(nova);
   } catch (err) {
     res.status(400).json({ error: 'Erro ao criar programação.', details: err.message });
   }
 });
 
-// Editar programação
+// Editar programação (também atualiza o campo BR)
 app.put('/api/programacoes/:id', async (req, res) => {
   try {
-    const atualizada = await Programacao.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    let atualizada = await Programacao.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!atualizada) return res.status(404).json({ error: 'Programação não encontrada.' });
+
+    // Atualiza o updatedAtBr
+    const updatedAtBr = new Date(atualizada.updatedAt).toLocaleString('pt-BR', {
+      timeZone: 'America/Sao_Paulo',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    atualizada = await Programacao.findByIdAndUpdate(req.params.id, { updatedAtBr }, { new: true });
+
     res.json(atualizada);
   } catch (err) {
     res.status(400).json({ error: 'Erro ao editar programação.', details: err.message });
