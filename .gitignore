@@ -1,5 +1,4 @@
 # Ignorar variáveis de ambiente
-node_modules/
 .env
 
 # Logs
@@ -13,4 +12,3 @@ node_modules/
 # Sistema operacional
 .DS_Store
 Thumbs.db
-v
