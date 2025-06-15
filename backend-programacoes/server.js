@@ -14,6 +14,13 @@ const JWT_SECRET = process.env.JWT_SECRET || 'segredo_forte_123';
 app.use(cors());
 app.use(express.json());
 
+//IP DO RENDER
+require('node-fetch')('https://api.ipify.org?format=json')
+  .then(res => res.json())
+  .then(data => console.log('🌐 IP público do Render:', data.ip))
+  .catch(err => console.error('❌ Erro ao buscar IP do Render:', err.message));
+
+
 // Conexão com o MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ MongoDB Atlas conectado!'))
