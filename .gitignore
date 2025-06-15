@@ -1,5 +1,4 @@
 # Ignorar variáveis de ambiente
-node_modules/
 .env
 
 # Logs
