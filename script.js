@@ -249,7 +249,7 @@ function renderTree() {
           <span>Responsável: ${p.responsavel}</span><br>
           <span>Data: ${p.data ? new Date(p.data).toLocaleDateString('pt-BR') : 'xx/xx/xxxx'}</span><br>
           ${p.video ? `<span>Vídeo: <a href="${p.video}" target="_blank">Ver</a></span><br>` : ""}
-          ${p.pptx ? `<span>PPTX: <a href="${p.pptx}" target="_blank">Baixar</a></span>` : ""}
+          ${p.pptx ? `<span>PPTX: <a href="${p.pptx}" target="_blank">Ver</a></span>` : ""}
           ${isModerator ? `
           <button class="btn-editar">Editar</button>
           <button class="btn-excluir">Excluir</button>` : ''}
