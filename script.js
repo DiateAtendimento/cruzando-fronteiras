@@ -137,10 +137,10 @@ async function salvarProgramacao() {
   const tema = document.getElementById('inputTema').value;
   const responsavel = document.getElementById('inputResponsavel').value;
 
-  //const data = document.getElementById('inputData').value;
+
   const rawDate = document.getElementById('inputData').value;
-  const data = new Date(rawDate);
-  data.setHours(12, 0, 0); // garante que seja salvo como o dia certo
+  const data = new Date(rawDate + 'T12:00:00');
+
 
 
   const video = document.getElementById('inputVideo').value;
