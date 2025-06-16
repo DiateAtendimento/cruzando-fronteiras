@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const uploadRoutes = require('./routes/upload');
 const jwt = require('jsonwebtoken');
 
 const Programacao = require('./models/Programacao');
@@ -35,6 +36,9 @@ mongoose.connect(process.env.MONGODB_URI)
     console.error('❌ Erro ao conectar no MongoDB:', err.message);
     process.exit(1);
   });
+
+// ======== ROTAS DE UPLOAD ========
+app.use('/api', uploadRoutes); // <- Adiciona a rota de upload aqui
 
 // ======== AUTENTICAÇÃO JWT ========
 

@@ -12,3 +12,16 @@ const ProgramacaoSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model('Programacao', ProgramacaoSchema);
+
+const express = require('express');
+const multer = require('multer');
+const { storage } = require('../config/cloudinary');
+
+const upload = multer({ storage });
+const router = express.Router();
+
+// Upload da imagem
+router.post('/upload-imagem', upload.single('imagem'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'Nenhuma imagem enviada' });
+  res.json({ url: req.file.path });
+});

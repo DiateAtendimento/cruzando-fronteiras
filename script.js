@@ -4,6 +4,8 @@ const API_URL = 'https://cruzando-fronteiras.onrender.com/api'; //Backend Render
 
 let isModerator = false;
 let jwtToken = null;
+let idImagemAtual = null;
+
 
 // Carrega modo do localStorage
 if (localStorage.getItem('perfilDRPPS') === 'admin') isModerator = true;
@@ -30,10 +32,70 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnConfirmaExclusao').onclick = confirmaExcluir;
   document.getElementById('btnCancelaExclusao').onclick = fecharConfirmacao;
   document.getElementById('programacaoBusca').oninput = renderTree;
+  document.getElementById('btnUploadImagem').addEventListener('click', enviarImagem);
+  document.getElementById('btnCancelarUpload').onclick = fecharModalImagem;
 
   // Carregar programações do backend
   carregarProgramacoes();
 });
+
+
+function abrirModalImagem(id) {
+  idImagemAtual = id;
+  document.getElementById('inputArquivoImagem').value = '';
+  document.getElementById('uploadStatus').textContent = '';
+  document.getElementById('modalUploadImagem').style.display = 'block';
+}
+
+function fecharModalImagem() {
+  document.getElementById('modalUploadImagem').style.display = 'none';
+  idImagemAtual = null;
+}
+
+async function enviarImagem() {
+  const input = document.getElementById('inputArquivoImagem');
+  const status = document.getElementById('uploadStatus');
+  if (!input.files || !input.files[0]) {
+    status.textContent = 'Selecione uma imagem primeiro.';
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('imagem', input.files[0]);
+
+  status.textContent = 'Enviando imagem...';
+
+  try {
+    const res = await fetch(`${API_URL}/upload-imagem`, {
+      method: 'POST',
+      body: formData
+    });
+    const data = await res.json();
+
+    if (data.url) {
+      status.textContent = 'Imagem enviada com sucesso!';
+
+      await fetch(`${API_URL}/programacoes/${idImagemAtual}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwtToken}`
+        },
+        body: JSON.stringify({ imagemUrl: data.url })
+      });
+
+      setTimeout(() => {
+        fecharModalImagem();
+        carregarProgramacoes();
+      }, 1000);
+    } else {
+      status.textContent = 'Erro no envio da imagem.';
+    }
+  } catch (err) {
+    status.textContent = 'Erro ao enviar: ' + err.message;
+  }
+}
+
 
 // ======== MODAL LOGIN =========
 function abrirModalLoginAdmin() {
@@ -285,7 +347,8 @@ function renderTree() {
                 acoes.innerHTML = `
                   <button class="btn-editar" onclick="abrirModalEditar('${p._id}')">Editar</button>
                   <button class="btn-excluir" onclick="abrirConfirmacao('${p._id}')">Excluir</button>
-                  <button class="btn-imagem" onclick="alert('Funcionalidade de alterar imagem em breve')">Imagem</button>
+                  <button class="btn-imagem" onclick="abrirModalImagem('${p._id}')">Imagem</button>
+
                 `;
                 card.appendChild(acoes);
               }
