@@ -123,10 +123,16 @@ function fecharModal() {
 async function salvarProgramacao() {
   const tema = document.getElementById('inputTema').value;
   const responsavel = document.getElementById('inputResponsavel').value;
-  const data = document.getElementById('inputData').value;
+
+  //const data = document.getElementById('inputData').value;
+  const rawDate = document.getElementById('inputData').value;
+  const data = new Date(rawDate);
+  data.setHours(12, 0, 0); // garante que seja salvo como o dia certo
+
+
   const video = document.getElementById('inputVideo').value;
   const pptx = document.getElementById('inputPptx').value;
-  if (!tema.trim() || !responsavel.trim() || !data.trim()) {
+  if (!tema.trim() || !responsavel.trim() || !rawDate.trim()) {
     alert('Preencha todos os campos obrigatórios.');
     return;
   }
