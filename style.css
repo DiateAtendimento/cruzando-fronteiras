@@ -94,7 +94,7 @@ body {
 
 .programacao-card {
   width: calc((100% - 40px) / 3); /* 3 cards por linha com dois gaps de 20px */
-  background: #fff;
+  background: #ffffff;
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
@@ -104,6 +104,8 @@ body {
   box-sizing: border-box;
   cursor: pointer;
   transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  color: #004cff;
+
 }
 
 .programacao-card:hover {
@@ -141,6 +143,9 @@ body {
   align-items: center;
 }
 
+.programacoes-titulo{
+  color:#4744ff;
+}
 
 .programacao-info {
   padding: 1rem;
@@ -901,6 +906,7 @@ html, body {
   border: 1px solid #bbb;
   border-radius: 7px;
   font-size: 1rem;
+
 }
 .btn-novo {
   background: #14993c;

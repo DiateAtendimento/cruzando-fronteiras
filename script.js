@@ -50,7 +50,6 @@ function fecharModalLoginAdmin() {
 async function autenticarAdmin() {
   const u = document.getElementById('adminUser').value.trim();
   const p = document.getElementById('adminPass').value;
-  // Faz login pelo backend, recebe token JWT
   try {
     const res = await fetch(`${API_URL}/login`, {
       method: 'POST',
@@ -83,7 +82,6 @@ function sairAdmin() {
 }
 
 // ======== CRUD PROGRAMACOES ========
-
 async function carregarProgramacoes(tentativas = 3) {
   const lista = document.getElementById('programacaoLista');
   lista.innerHTML = '<li>🔄 Carregando programações...</li>';
@@ -105,7 +103,6 @@ async function carregarProgramacoes(tentativas = 3) {
     }
   }
 }
-
 
 function abrirModalNovo() {
   editandoId = null;
@@ -134,7 +131,6 @@ function fecharModal() {
   document.getElementById('programacaoModal').style.display = 'none';
 }
 
-// CRIAR/EDITAR
 async function salvarProgramacao() {
   const tema = document.getElementById('inputTema').value;
   const responsavel = document.getElementById('inputResponsavel').value;
@@ -153,7 +149,6 @@ async function salvarProgramacao() {
   try {
     let res;
     if (editandoId) {
-      // Editar
       res = await fetch(`${API_URL}/programacoes/${editandoId}`, {
         method: 'PUT',
         headers: {
@@ -163,7 +158,6 @@ async function salvarProgramacao() {
         body: JSON.stringify(payload)
       });
     } else {
-      // Criar novo
       res = await fetch(`${API_URL}/programacoes`, {
         method: 'POST',
         headers: {
@@ -188,7 +182,7 @@ function abrirConfirmacao(id) {
 function fecharConfirmacao() {
   document.getElementById('confirmExclusao').style.display = 'none';
 }
-// EXCLUIR
+
 async function confirmaExcluir() {
   try {
     const res = await fetch(`${API_URL}/programacoes/${editandoId}`, {
@@ -203,20 +197,6 @@ async function confirmaExcluir() {
   } catch (err) {
     alert('Erro: ' + err.message);
   }
-}
-
-// ==== RESTANTE: AGRUPAR, RENDER TREE... ====
-
-function agruparProgramacoes(programacoesFiltradas) {
-  const tree = {};
-  programacoesFiltradas.forEach(p => {
-    const ano = new Date(p.data).getFullYear();
-    const mes = capitalizeMes(new Date(p.data).toLocaleString('pt-BR', { month: 'long' }));
-    if (!tree[ano]) tree[ano] = {};
-    if (!tree[ano][mes]) tree[ano][mes] = [];
-    tree[ano][mes].push(p);
-  });
-  return tree;
 }
 
 function renderTree() {
@@ -247,7 +227,10 @@ function renderTree() {
       renderTree();
     };
     liAno.appendChild(btnAno);
-    liAno.append(` ${ano}`);
+    const spanAno = document.createElement('span');
+    spanAno.textContent = ` ${ano}`;
+    spanAno.style.fontWeight = 'bold';
+    liAno.appendChild(spanAno);
 
     if (expandedState.anos[ano]) {
       const ulMeses = document.createElement('ul');
@@ -263,7 +246,10 @@ function renderTree() {
           renderTree();
         };
         liMes.appendChild(btnMes);
-        liMes.append(` ${mes}`);
+        const spanMes = document.createElement('span');
+        spanMes.textContent = ` ${mes}`;
+        spanMes.style.fontWeight = 'bold';
+        liMes.appendChild(spanMes);
 
         if (expandedState.meses[key]) {
           const container = document.createElement('div');
@@ -276,7 +262,6 @@ function renderTree() {
               const card = document.createElement('div');
               card.className = 'programacao-card';
 
-              // Imagem ou espaço reservado
               const imagemContainer = document.createElement('div');
               imagemContainer.className = 'programacao-img-container';
               imagemContainer.innerHTML = p.imagemUrl
@@ -319,10 +304,6 @@ function renderTree() {
   });
 }
 
-
-
-
-
 function mesToNum(mesNome) {
   const meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
   let idx = meses.findIndex(m => m.toLowerCase() === (mesNome || '').toLowerCase());
@@ -332,7 +313,6 @@ function capitalizeMes(mes) {
   return mes.charAt(0).toUpperCase() + mes.slice(1).toLowerCase();
 }
 
-//Tecla ENTER ATIVA
 document.getElementById('modalLoginAdmin').addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     document.getElementById('btnEntrarAdmin').click();
