@@ -74,6 +74,11 @@ app.get('/api/programacoes', async (req, res) => {
 
 app.post('/api/programacoes', autenticarJWT, async (req, res) => {
   try {
+    // CORRIGINDO FUSO HORÁRIO ANTES DE SALVAR
+    const dataInput = new Date(req.body.data);
+    dataInput.setHours(12, 0, 0); // meio-dia evita shift de UTC
+    req.body.data = dataInput;
+
     let nova = new Programacao(req.body);
     await nova.save();
 
@@ -93,6 +98,11 @@ app.post('/api/programacoes', autenticarJWT, async (req, res) => {
 
 app.put('/api/programacoes/:id', autenticarJWT, async (req, res) => {
   try {
+    // CORRIGINDO FUSO HORÁRIO NA EDIÇÃO TAMBÉM
+    const dataInput = new Date(req.body.data);
+    dataInput.setHours(12, 0, 0); // meio-dia evita problema de UTC
+    req.body.data = dataInput;
+
     let atualizada = await Programacao.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!atualizada) return res.status(404).json({ error: 'Programação não encontrada.' });
 
