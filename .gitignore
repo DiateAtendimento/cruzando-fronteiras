@@ -1,15 +1,13 @@
-# Ignorar variáveis de ambiente dentro de backend
-/backend-programacoes/.env
+# Variáveis de ambiente
+backend-programacoes/.env
 
 # Logs
-logs
 *.log
 npm-debug.log*
+backend-programacoes/logs/
 
 # Dependências
-/backend-programacoes/node_modules/
-
-/backend-programacoes/logs
+backend-programacoes/node_modules/
 
 # Sistema operacional
 .DS_Store
