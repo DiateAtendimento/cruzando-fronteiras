@@ -77,10 +77,10 @@
     <input type="text" id="programacaoBusca" placeholder="Encontre uma programação..." />
     <button id="btnNovo" class="btn-novo" style="display:none;">Novo</button>
   </div>
-  <h2 class="programacoes-titulo"><span class="tree-toggle-btn" data-level="root"></span> Programações</h2>
+  <h2 class="programacoes-titulo"><span data-level="root"></span> Programações</h2>
   <ul id="programacaoLista" class="tree-programacao"></ul>
 
-  <!-- Formulário modal -->
+<!-- Formulário modal -->
   <div id="programacaoModal" class="modal" style="display:none;">
     <div class="modal-content">
       <label>Tema<br/><input type="text" id="inputTema" /></label>
@@ -88,6 +88,7 @@
       <label>Data<br/><input type="date" id="inputData" /></label>
       <label>Vídeo<br/><input type="text" id="inputVideo" /></label>
       <label>PPTX<br/><input type="text" id="inputPptx" /></label>
+      <label>URL da Imagem<br/><input type="url" id="inputImagem" placeholder="https://exemplo.com/imagem.png" /></label>
       <div class="modal-actions">
         <button id="btnSalvar" class="btn-salvar">Salvar</button>
         <button id="btnCancelar" class="btn-cancelar">Cancelar</button>

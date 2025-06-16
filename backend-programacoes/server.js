@@ -76,11 +76,13 @@ app.get('/api/programacoes', async (req, res) => {
 app.post('/api/programacoes', autenticarJWT, async (req, res) => {
   try {
     // CORRIGINDO FUSO HORÁRIO ANTES DE SALVAR
-    const dataInput = new Date(req.body.data);
-    dataInput.setHours(12, 0, 0); // meio-dia evita shift de UTC
-    req.body.data = dataInput;
+    const { tema, responsavel, data, video, pptx, imagemUrl } = req.body;
+    const dataInput = new Date(data);
+    dataInput.setHours(12, 0, 0);
 
-    let nova = new Programacao(req.body);
+    const dadosProgramacao = { tema, responsavel, data: dataInput, video, pptx, imagemUrl };
+
+    let nova = new Programacao(dadosProgramacao);
     await nova.save();
 
     const createdAtBr = new Date(nova.createdAt).toLocaleString('pt-BR', {

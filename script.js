@@ -114,6 +114,7 @@ function abrirModalNovo() {
   document.getElementById('inputData').value = '';
   document.getElementById('inputVideo').value = '';
   document.getElementById('inputPptx').value = '';
+  document.getElementById('inputImagem').value = '';
   document.getElementById('programacaoModal').style.display = 'flex';
 }
 
@@ -125,6 +126,7 @@ function abrirModalEditar(id) {
   document.getElementById('inputData').value = p.data ? p.data.substring(0, 10) : '';
   document.getElementById('inputVideo').value = p.video || '';
   document.getElementById('inputPptx').value = p.pptx || '';
+  document.getElementById('inputImagem').value = p.imagemUrl || '';
   document.getElementById('programacaoModal').style.display = 'flex';
 }
 
@@ -136,20 +138,17 @@ function fecharModal() {
 async function salvarProgramacao() {
   const tema = document.getElementById('inputTema').value;
   const responsavel = document.getElementById('inputResponsavel').value;
-
-
   const rawDate = document.getElementById('inputData').value;
   const data = new Date(rawDate + 'T12:00:00');
-
-
-
   const video = document.getElementById('inputVideo').value;
   const pptx = document.getElementById('inputPptx').value;
+  const imagemUrl = document.getElementById('inputImagem').value;
+
   if (!tema.trim() || !responsavel.trim() || !rawDate.trim()) {
     alert('Preencha todos os campos obrigatórios.');
     return;
   }
-  const payload = { tema, responsavel, data, video, pptx };
+  const payload = { tema, responsavel, data, video, pptx, imagemUrl };
 
   try {
     let res;
@@ -206,7 +205,7 @@ async function confirmaExcluir() {
   }
 }
 
-// ==== RESTANTE: AGRUPAR, RENDER TREE... (sem alteração) ====
+// ==== RESTANTE: AGRUPAR, RENDER TREE... ====
 
 function agruparProgramacoes(programacoesFiltradas) {
   const tree = {};
@@ -225,87 +224,104 @@ function renderTree() {
   const lista = document.getElementById('programacaoLista');
   lista.innerHTML = '';
 
-  const filtradas = programacoes.filter(p =>
-    p.tema.toLowerCase().includes(busca) ||
-    p.responsavel.toLowerCase().includes(busca) ||
-    (new Date(p.data).getFullYear() + '').includes(busca) ||
-    (new Date(p.data).toLocaleString('pt-BR', { month: 'long' }).toLowerCase().includes(busca))
-  );
-
-  const tree = agruparProgramacoes(filtradas);
-
-  Object.keys(tree).sort().forEach(ano => {
-    const anoKey = String(ano);
-    const isAnoOpen = !!expandedState.anos[anoKey];
-    const anoLi = document.createElement('li');
-    anoLi.classList.add('pasta');
-    anoLi.innerHTML = `
-      <button class="toggle-btn" data-level="ano" data-ano="${anoKey}" aria-expanded="${isAnoOpen}">${isAnoOpen ? "–" : "+"}</button>
-      <b>${ano}</b>
-    `;
-    const ulMes = document.createElement('ul');
-    ulMes.style.marginLeft = '1.2rem';
-    ulMes.style.display = isAnoOpen ? "" : "none";
-
-    Object.keys(tree[ano]).sort((a, b) => new Date(`2020-${mesToNum(a)}-01`) - new Date(`2020-${mesToNum(b)}-01`)).forEach(mes => {
-      const mesKey = `${anoKey}_${mes}`;
-      const isMesOpen = !!expandedState.meses[mesKey];
-      const mesLi = document.createElement('li');
-      mesLi.classList.add('pasta');
-      mesLi.innerHTML = `
-        <button class="toggle-btn" data-level="mes" data-ano="${anoKey}" data-mes="${mes}" aria-expanded="${isMesOpen}">${isMesOpen ? "–" : "+"}</button>
-        <b>${mes}</b>
-      `;
-      const ulProg = document.createElement('ul');
-      ulProg.style.marginLeft = '1.2rem';
-      ulProg.style.display = isMesOpen ? "" : "none";
-
-      tree[ano][mes].forEach(p => {
-        const progLi = document.createElement('li');
-        progLi.classList.add('programacao-item');
-        progLi.innerHTML = `
-          <b>${p.tema}</b> <br>
-          <span>Responsável: ${p.responsavel}</span><br>
-          <span>Data: ${p.data ? new Date(p.data).toLocaleDateString('pt-BR') : 'xx/xx/xxxx'}</span><br>
-          ${p.video ? `<span>Vídeo: <a href="${p.video}" target="_blank">Ver</a></span><br>` : ""}
-          ${p.pptx ? `<span>PPTX: <a href="${p.pptx}" target="_blank">Ver</a></span>` : ""}
-          ${isModerator ? `
-          <button class="btn-editar">Editar</button>
-          <button class="btn-excluir">Excluir</button>` : ''}
-        `;
-        if (isModerator) {
-          progLi.querySelector('.btn-editar').onclick = () => abrirModalEditar(p._id);
-          progLi.querySelector('.btn-excluir').onclick = () => abrirConfirmacao(p._id);
-        }
-        ulProg.appendChild(progLi);
-      });
-      mesLi.appendChild(ulProg);
-      ulMes.appendChild(mesLi);
-    });
-    anoLi.appendChild(ulMes);
-    lista.appendChild(anoLi);
+  const agrupado = {};
+  programacoes.forEach(p => {
+    if (!p.data) return;
+    const data = new Date(p.data);
+    const ano = data.getFullYear();
+    const mes = capitalizeMes(data.toLocaleString('pt-BR', { month: 'long' }));
+    const dia = data.toLocaleDateString('pt-BR').slice(0, 5);
+    if (!agrupado[ano]) agrupado[ano] = {};
+    if (!agrupado[ano][mes]) agrupado[ano][mes] = [];
+    agrupado[ano][mes].push({ ...p, dia });
   });
 
-  // Controle de expandir/recolher usando botão, preservando estado
-  document.querySelectorAll('.toggle-btn').forEach(btn => {
-    btn.onclick = function () {
-      const li = btn.parentElement;
-      const ul = li.querySelector('ul');
-      if (!ul) return;
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      ul.style.display = expanded ? 'none' : '';
-      btn.textContent = expanded ? '+' : '–';
-      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-
-      if (btn.dataset.level === "ano") {
-        expandedState.anos[btn.dataset.ano] = !expanded;
-      }
-      if (btn.dataset.level === "mes") {
-        expandedState.meses[`${btn.dataset.ano}_${btn.dataset.mes}`] = !expanded;
-      }
+  Object.keys(agrupado).sort((a, b) => b - a).forEach(ano => {
+    const liAno = document.createElement('li');
+    const btnAno = document.createElement('button');
+    btnAno.className = 'tree-toggle-btn';
+    btnAno.textContent = expandedState.anos[ano] ? '–' : '+';
+    btnAno.setAttribute('aria-expanded', expandedState.anos[ano] ? 'true' : 'false');
+    btnAno.onclick = () => {
+      expandedState.anos[ano] = !expandedState.anos[ano];
+      renderTree();
     };
+    liAno.appendChild(btnAno);
+    liAno.append(` ${ano}`);
+
+    if (expandedState.anos[ano]) {
+      const ulMeses = document.createElement('ul');
+      Object.keys(agrupado[ano]).forEach(mes => {
+        const key = `${ano}-${mes}`;
+        const liMes = document.createElement('li');
+        const btnMes = document.createElement('button');
+        btnMes.className = 'tree-toggle-btn';
+        btnMes.textContent = expandedState.meses[key] ? '–' : '+';
+        btnMes.setAttribute('aria-expanded', expandedState.meses[key] ? 'true' : 'false');
+        btnMes.onclick = () => {
+          expandedState.meses[key] = !expandedState.meses[key];
+          renderTree();
+        };
+        liMes.appendChild(btnMes);
+        liMes.append(` ${mes}`);
+
+        if (expandedState.meses[key]) {
+          const container = document.createElement('div');
+          container.className = 'cards-container';
+
+          agrupado[ano][mes]
+            .filter(p => p.tema.toLowerCase().includes(busca))
+            .sort((a, b) => new Date(b.data) - new Date(a.data))
+            .forEach(p => {
+              const card = document.createElement('div');
+              card.className = 'programacao-card';
+
+              // Imagem ou espaço reservado
+              const imagemContainer = document.createElement('div');
+              imagemContainer.className = 'programacao-img-container';
+              imagemContainer.innerHTML = p.imagemUrl
+                ? `<img src="${p.imagemUrl}" alt="Imagem ${p.tema}" class="programacao-img">`
+                : `<div class="programacao-img placeholder-img">Sem imagem</div>`;
+              card.appendChild(imagemContainer);
+
+              const info = document.createElement('div');
+              info.className = 'programacao-info';
+              info.innerHTML = `
+                <h3>${p.dia} — ${p.tema}</h3>
+                <p><strong>Proprietário(a):</strong> ${p.responsavel}</p>
+                ${p.video ? `<p><strong>Vídeo:</strong> <a href="${p.video}" target="_blank">Ver</a></p>` : ''}
+                ${p.pptx ? `<p><strong>PPTX:</strong> <a href="${p.pptx}" target="_blank">Ver</a></p>` : ''}
+              `;
+              card.appendChild(info);
+
+              if (isModerator) {
+                const acoes = document.createElement('div');
+                acoes.className = 'programacao-acoes';
+                acoes.innerHTML = `
+                  <button class="btn-editar" onclick="abrirModalEditar('${p._id}')">Editar</button>
+                  <button class="btn-excluir" onclick="abrirConfirmacao('${p._id}')">Excluir</button>
+                  <button class="btn-imagem" onclick="alert('Funcionalidade de alterar imagem em breve')">Imagem</button>
+                `;
+                card.appendChild(acoes);
+              }
+
+              container.appendChild(card);
+            });
+          liMes.appendChild(container);
+        }
+
+        ulMeses.appendChild(liMes);
+      });
+      liAno.appendChild(ulMeses);
+    }
+
+    lista.appendChild(liAno);
   });
 }
+
+
+
+
 
 function mesToNum(mesNome) {
   const meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];

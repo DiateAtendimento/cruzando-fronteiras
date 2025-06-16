@@ -6,6 +6,7 @@ const ProgramacaoSchema = new mongoose.Schema({
   data:        { type: Date,   required: true },
   video:       { type: String },
   pptx:        { type: String },
+  imagemUrl:   { type: String },
   createdAtBr: { type: String },
   updatedAtBr: { type: String }
 }, { timestamps: true });
