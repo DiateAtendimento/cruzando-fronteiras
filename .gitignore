@@ -9,6 +9,6 @@ backend-programacoes/logs/
 # Dependências
 backend-programacoes/node_modules/
 
-# Sistema operacional
+# Sistema operacional (Windows/macOS)
 .DS_Store
 Thumbs.db
