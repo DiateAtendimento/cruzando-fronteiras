@@ -1,4 +1,5 @@
 // server.js
+process.env.TZ = 'America/Sao_Paulo';
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');

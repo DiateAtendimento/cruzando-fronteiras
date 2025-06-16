@@ -84,15 +84,28 @@ function sairAdmin() {
 
 // ======== CRUD PROGRAMACOES ========
 
-async function carregarProgramacoes() {
+async function carregarProgramacoes(tentativas = 3) {
+  const lista = document.getElementById('programacaoLista');
+  lista.innerHTML = '<li>🔄 Carregando programações...</li>';
+
   try {
     const res = await fetch(`${API_URL}/programacoes`);
     programacoes = await res.json();
-    renderTree();
+
+    if (!programacoes.length) {
+      lista.innerHTML = '<li>⚠️ Nenhuma programação encontrada.</li>';
+    } else {
+      renderTree();
+    }
   } catch {
-    alert('Erro ao buscar programações');
+    if (tentativas > 0) {
+      setTimeout(() => carregarProgramacoes(tentativas - 1), 2000);
+    } else {
+      lista.innerHTML = '<li>❌ Erro ao carregar. Tente recarregar a página.</li>';
+    }
   }
 }
+
 
 function abrirModalNovo() {
   editandoId = null;
