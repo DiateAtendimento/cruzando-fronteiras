@@ -460,30 +460,35 @@
     });
   </script>
 
-    <script>
-        document.querySelectorAll('.toggle-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var expanded = btn.getAttribute('aria-expanded') === 'true';
-            var nextUl = btn.parentElement.querySelector('ul');
-            if (!nextUl) return;
-            if (expanded) {
-            btn.textContent = '+';
-            btn.setAttribute('aria-expanded', 'false');
-            nextUl.hidden = true;
-            } else {
-            btn.textContent = '–';
-            btn.setAttribute('aria-expanded', 'true');
-            nextUl.hidden = false;
-            }
-        });
-        });
-        // Ao abrir a página, mostrar o 1º nível aberto e demais fechados
-        document.querySelectorAll('.tree-list > li > ul > li > ul').forEach(function(ul) {
-        ul.hidden = true;
-        var btn = ul.parentElement.querySelector('.toggle-btn');
-        if(btn){ btn.textContent = '+'; btn.setAttribute('aria-expanded','false'); }
-        });
-    </script>
+  <script>
+    document.querySelectorAll('.toggle-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        var nextUl = btn.parentElement.querySelector('ul:not(.tree-pessoas)');
+        if (!nextUl) return;
+        if (expanded) {
+          btn.textContent = '+';
+          btn.setAttribute('aria-expanded', 'false');
+          nextUl.hidden = true;
+        } else {
+          btn.textContent = '–';
+          btn.setAttribute('aria-expanded', 'true');
+          nextUl.hidden = false;
+        }
+      });
+    });
+
+    // Ao abrir a página, fechar apenas os níveis estruturais, não as listas de pessoas
+    document.querySelectorAll('.tree-list ul:not(.tree-pessoas)').forEach(function(ul) {
+      ul.hidden = true;
+    });
+
+    document.querySelectorAll('.toggle-btn').forEach(function(btn) {
+      btn.textContent = '+';
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  </script>
+
 
   
 </body>
