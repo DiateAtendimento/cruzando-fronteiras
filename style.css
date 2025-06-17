@@ -94,7 +94,7 @@ body {
 
 .programacao-card {
   width: calc((100% - 40px) / 3); /* 3 cards por linha com dois gaps de 20px */
-  background: #ffffff;
+  background: #2dd1e0;
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
@@ -104,7 +104,7 @@ body {
   box-sizing: border-box;
   cursor: pointer;
   transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
-  color: #004cff;
+  color: #000000;
 
 }
 
@@ -164,8 +164,12 @@ body {
 
 .programacao-info a {
   font-size: 0.9rem;
-  color: #0077cc;
-  text-decoration: underline;
+  color: #000000;
+  text-decoration: none;
+}
+
+.programacao-info a:hover{
+  color: orange;
 }
 
 .programacao-acoes {
@@ -514,6 +518,7 @@ body {
   cursor: pointer;
   transition: background .15s;
   margin-right: .5rem;
+  margin-bottom: 1rem;
   box-shadow: 0 1px 3px #0001;
   vertical-align: middle;
   display: inline-flex;
@@ -964,7 +969,7 @@ html, body {
 .programacao-card {
   display: flex;
   gap: 12px;
-  padding: 8px 0;
+  padding: 0px 0;
   border-bottom: 1px solid #eee;
 }
 

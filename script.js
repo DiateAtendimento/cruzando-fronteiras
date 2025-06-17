@@ -341,9 +341,9 @@ function renderTree() {
               info.className = 'programacao-info';
               info.innerHTML = `
                 <h3>${p.dia} — ${p.tema}</h3>
-                <p><strong>Proprietário(a):</strong> ${p.responsavel}</p>
-                ${p.video ? `<p><strong>Vídeo:</strong> <a href="${p.video}" target="_blank">Ver</a></p>` : ''}
-                ${p.pptx ? `<p><strong>PPTX:</strong> <a href="${p.pptx}" target="_blank">Ver</a></p>` : ''}
+                <p>Proprietário(a): ${p.responsavel}</p>
+                ${p.video ? `<p>Vídeo: <a href="${p.video}" target="_blank">Acessar</a></p>` : ''}
+                ${p.pptx ? `<p>PPTX: <a href="${p.pptx}" target="_blank">Acessar</a></p>` : ''}
               `;
               card.appendChild(info);
 
