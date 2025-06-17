@@ -1045,9 +1045,12 @@ html, body {
   }
 
   .programacoes-titulo {
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 20px;
-}
+  }
+  .programacao-header{
+    margin-top: 100px;
+  }
 }
 
 
