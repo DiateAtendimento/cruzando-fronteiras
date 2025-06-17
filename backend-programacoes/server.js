@@ -31,11 +31,19 @@ app.use(express.json());
 
 // Conexão com o MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ MongoDB Atlas conectado!'))
+  .then(() => {
+    console.log('✅ MongoDB Atlas conectado!');
+
+    // AQUI: só starta o servidor depois de conectar no Mongo
+    app.listen(PORT, () => {
+      console.log(`🚀 Server rodando na porta ${PORT}`);
+    });
+  })
   .catch(err => {
     console.error('❌ Erro ao conectar no MongoDB:', err.message);
     process.exit(1);
   });
+
 
 // ======== ROTAS DE UPLOAD ========
 app.use('/api', uploadRoutes); 
