@@ -1043,6 +1043,11 @@ html, body {
     padding-right: 10px;
     margin: 0;
   }
+
+  .programacoes-titulo {
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
 }
 
 
