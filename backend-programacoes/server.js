@@ -38,7 +38,7 @@ mongoose.connect(process.env.MONGODB_URI)
   });
 
 // ======== ROTAS DE UPLOAD ========
-app.use('/api', uploadRoutes); // <- Adiciona a rota de upload aqui
+app.use('/api', uploadRoutes); 
 
 // ======== AUTENTICAÇÃO JWT ========
 
@@ -105,17 +105,21 @@ app.post('/api/programacoes', autenticarJWT, async (req, res) => {
 
 app.put('/api/programacoes/:id', autenticarJWT, async (req, res) => {
   try {
-    // CORRIGINDO FUSO HORÁRIO NA EDIÇÃO TAMBÉM
-    const dataInput = new Date(req.body.data);
-    dataInput.setHours(12, 0, 0); // meio-dia evita problema de UTC
-    req.body.data = dataInput;
+    // Só ajusta a data se ela for enviada
+    if (req.body.data) {
+      const dataInput = new Date(req.body.data);
+      dataInput.setHours(12, 0, 0);
+      req.body.data = dataInput;
+    }
 
     let atualizada = await Programacao.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!atualizada) return res.status(404).json({ error: 'Programação não encontrada.' });
 
     const updatedAtBr = new Date(atualizada.updatedAt).toLocaleString('pt-BR', {
-      timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'
+      timeZone: 'America/Sao_Paulo',
+      year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'
     });
+
     atualizada = await Programacao.findByIdAndUpdate(req.params.id, { updatedAtBr }, { new: true });
 
     res.json(atualizada);
@@ -123,6 +127,7 @@ app.put('/api/programacoes/:id', autenticarJWT, async (req, res) => {
     res.status(400).json({ error: 'Erro ao editar programação.', details: err.message });
   }
 });
+
 
 app.delete('/api/programacoes/:id', autenticarJWT, async (req, res) => {
   try {
