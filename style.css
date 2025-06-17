@@ -1020,11 +1020,31 @@ html, body {
 
 
 /* Corrigir sobreposição no mobile (evita header cobrir conteúdo) */
+/* Em telas até 768px, empilha os cards verticalmente */
 @media (max-width: 768px) {
-  .main-programacoes {
-    padding-top: 120px !important;
+  /* Se você estiver usando .cards-container (flex) */
+  .cards-container {
+    flex-direction: column;
+    /* gap já está em 20px e funciona também em coluna */
+  }
+  .cards-container .programacao-card {
+    width: 100% !important;
+  }
+
+  /* Se estiver usando .card__container (grid) */
+  .card__container {
+    display: grid;
+    grid-template-columns: 1fr !important;
+  }
+
+  .tree-programacao, 
+  .tree-programacao ul {
+    list-style-type: none !important;
+    padding-right: 10px;
+    margin: 0;
   }
 }
+
 
 @media (min-width: 769px) {
   .main-programacoes {
