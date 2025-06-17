@@ -104,8 +104,11 @@ app.post('/api/programacoes', autenticarJWT, async (req, res) => {
 });
 
 app.put('/api/programacoes/:id', autenticarJWT, async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ error: 'ID inválido.' });
+  }
+
   try {
-    // Só ajusta a data se ela for enviada
     if (req.body.data) {
       const dataInput = new Date(req.body.data);
       dataInput.setHours(12, 0, 0);
@@ -130,6 +133,10 @@ app.put('/api/programacoes/:id', autenticarJWT, async (req, res) => {
 
 
 app.delete('/api/programacoes/:id', autenticarJWT, async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ error: 'ID inválido.' });
+  }
+
   try {
     const removida = await Programacao.findByIdAndDelete(req.params.id);
     if (!removida) return res.status(404).json({ error: 'Programação não encontrada.' });
@@ -137,12 +144,4 @@ app.delete('/api/programacoes/:id', autenticarJWT, async (req, res) => {
   } catch (err) {
     res.status(400).json({ error: 'Erro ao excluir programação.' });
   }
-});
-
-app.get('/', (req, res) => {
-  res.send('Backend Programações Rodando 🎉');
-});
-
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
 });

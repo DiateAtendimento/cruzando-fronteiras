@@ -55,6 +55,12 @@ function fecharModalImagem() {
 async function enviarImagem() {
   const input = document.getElementById('inputArquivoImagem');
   const status = document.getElementById('uploadStatus');
+    
+  if (!/^[a-f\d]{24}$/i.test(idImagemAtual)) {
+    status.textContent = 'ID de programação inválido.';
+    return;
+  }
+
   if (!input.files || !input.files[0]) {
     status.textContent = 'Selecione uma imagem primeiro.';
     return;
