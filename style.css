@@ -96,6 +96,7 @@ body {
   width: calc((100% - 40px) / 3); /* 3 cards por linha com dois gaps de 20px */
   background: #2dd1e0;
   border-radius: 12px;
+  margin-bottom: 20px;
   padding: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   display: flex;
