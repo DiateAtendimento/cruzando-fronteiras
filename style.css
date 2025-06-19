@@ -749,7 +749,7 @@ body {
 }
 @media (max-width: 700px) {
   .nav {
-    padding: 0.7rem 1rem;
+    padding: 0.7rem 2rem;
   }
   .site-header { padding-bottom: 0; }
   .nav__list {
@@ -789,7 +789,7 @@ body {
   .split__text { font-size: 2rem; }
 }
 @media (max-width: 480px) {
-  .hero__content h1 { font-size: 1.25rem; }
+  .hero__content h1 { font-size: 2.25rem; margin-top: 7rem;}
   .hero__content p { font-size: 1rem; }
   .btn--primary { font-size: 0.9rem; padding: 0.65rem 1.2rem; }
   .split__text { font-size: 1.3rem; }
@@ -1062,3 +1062,12 @@ html, body {
 }
 
 
+    /*Ocultar imagem dos executivos em dispositivos menores que tablets */
+    @media (max-width: 768px) {
+      .hero__image {
+        display: none !important;
+      }
+      .hero {
+        background: #000 !important;
+      }
+    }
